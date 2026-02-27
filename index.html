@@ -879,7 +879,12 @@
 
     @media (max-width: 900px) {
       .nav { padding: 24px; }
-      .nav-links { gap: 24px; }
+      
+      /* Hide text links on mobile, keep only the theme toggle */
+      .nav-link { display: none; }
+      .nav-links { gap: 0; }
+      .nav-theme-toggle { margin-left: 0; }
+
       .hero { padding: 160px 24px 40px; }
       .hero-title-line--indent { padding-left: 0; }
       
@@ -1021,13 +1026,11 @@
       <!-- Bouton Thème du Header avec Animation SVG -->
       <button class="nav-theme-toggle interactive-el" id="header-theme-toggle" aria-label="Changer de thème">
         <svg class="theme-icon icon-moon" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-          <!-- Lune croissante pleine et élégante -->
           <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/>
         </svg>
         <svg class="theme-icon icon-sun" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-          <!-- Soleil plein et minimaliste (Bug de la patte corrigé) -->
           <circle cx="12" cy="12" r="5" fill="currentColor"/>
-          <path d="M12 1v2M12 21v2M4.22 4.22l1.42 1.42M18.36 18.36l1.42 1.42M1 12h2M21 12h2M4.22 19.78l1.42-1.42M18.36 5.64l1.42-1.42" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+          <path d="M12 1v2M12 21v2M4.22 4.22l1.42 1.42M18.36 18.36l1.42 1.42M1 12h2M21 12h2M4.22 19.78l1.42-1.42M18.36 5.64l1.42 1.42" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
         </svg>
       </button>
 
