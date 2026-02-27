@@ -116,22 +116,21 @@
     }
 
     /* ============================================
-       SYSTEM MARKS (Croix de gabarit aux coins)
+       SYSTEM MARKS (Équerres de cadrage aux coins)
        ============================================ */
     .sys-mark {
       position: fixed;
-      font-family: var(--font-mono);
-      font-size: 14px;
-      color: var(--text-muted);
+      width: 16px;
+      height: 16px;
+      border-color: var(--text);
+      opacity: 0.25; /* Très discret */
       z-index: 50;
       pointer-events: none;
-      line-height: 1;
-      opacity: 0.6;
     }
-    .mark-tl { top: 24px; left: 24px; }
-    .mark-tr { top: 24px; right: 24px; }
-    .mark-bl { bottom: 24px; left: 24px; }
-    .mark-br { bottom: 24px; right: 24px; }
+    .mark-tl { top: 24px; left: 24px; border-top: 1px solid; border-left: 1px solid; }
+    .mark-tr { top: 24px; right: 24px; border-top: 1px solid; border-right: 1px solid; }
+    .mark-bl { bottom: 24px; left: 24px; border-bottom: 1px solid; border-left: 1px solid; }
+    .mark-br { bottom: 24px; right: 24px; border-bottom: 1px solid; border-right: 1px solid; }
 
     /* ============================================
        CUSTOM CURSOR
@@ -833,20 +832,20 @@
       letter-spacing: 0.1em;
     }
 
-    /* Retour aux positions "Constellation" éparpillées */
-    .micro-text--1 { top: -140px; left: 0%; max-width: 260px; text-align: left; }
-    .micro-text--3 { top: 8%; right: -5%; max-width: 220px; text-align: right; }
-    .micro-text--5 { top: -200px; right: 15%; max-width: 200px; text-align: right; }
-    .micro-text--7 { top: 25%; left: -8%; max-width: 180px; text-align: left; }
-    .micro-text--9 { top: -60px; left: 32%; max-width: 220px; text-align: left; }
-    .micro-text--11 { top: -100px; right: 38%; max-width: 180px; text-align: right; }
+    /* Positions "Constellation" - Légèrement écartées du centre */
+    .micro-text--1 { top: -160px; left: -2%; max-width: 260px; text-align: left; }
+    .micro-text--3 { top: 5%; right: -10%; max-width: 220px; text-align: right; }
+    .micro-text--5 { top: -220px; right: 10%; max-width: 200px; text-align: right; }
+    .micro-text--7 { top: 30%; left: -10%; max-width: 180px; text-align: left; }
+    .micro-text--9 { top: -80px; left: 28%; max-width: 220px; text-align: left; }
+    .micro-text--11 { top: -120px; right: 35%; max-width: 180px; text-align: right; }
 
-    .micro-text--2 { bottom: -140px; right: 0%; max-width: 260px; text-align: right; }
-    .micro-text--4 { bottom: 8%; left: -5%; max-width: 220px; text-align: left; }
-    .micro-text--6 { bottom: -200px; left: 15%; max-width: 200px; text-align: left; }
-    .micro-text--8 { bottom: 25%; right: -8%; max-width: 180px; text-align: right; }
-    .micro-text--10 { bottom: -60px; right: 32%; max-width: 200px; text-align: right; }
-    .micro-text--12 { bottom: -100px; left: 38%; max-width: 180px; text-align: left; }
+    .micro-text--2 { bottom: -160px; right: -2%; max-width: 260px; text-align: right; }
+    .micro-text--4 { bottom: 5%; left: -10%; max-width: 220px; text-align: left; }
+    .micro-text--6 { bottom: -220px; left: 10%; max-width: 200px; text-align: left; }
+    .micro-text--8 { bottom: 30%; right: -10%; max-width: 180px; text-align: right; }
+    .micro-text--10 { bottom: -80px; right: 28%; max-width: 200px; text-align: right; }
+    .micro-text--12 { bottom: -120px; left: 35%; max-width: 180px; text-align: left; }
 
     /* ============================================
        FOOTER (CONTACT) - BRUTALIST GRID
@@ -969,20 +968,6 @@
       font-size: 0.6rem;
       text-transform: uppercase;
       letter-spacing: 0.1em;
-    }
-
-    .footer-massive {
-      font-family: var(--font-body);
-      font-size: 15vw; 
-      font-weight: 700;
-      letter-spacing: -0.04em;
-      line-height: 0.75;
-      text-transform: uppercase;
-      text-align: center;
-      color: var(--text);
-      white-space: nowrap;
-      margin-bottom: -1vw; 
-      user-select: none;
     }
 
     .footer-meta {
@@ -1173,11 +1158,6 @@
         gap: 24px;
         margin-bottom: 40px;
       }
-
-      .footer-massive {
-        font-size: 19vw; 
-        margin-bottom: -2vw;
-      }
       
       .footer-meta {
         width: 100%;
@@ -1193,11 +1173,11 @@
 </head>
 <body>
 
-  <!-- Marques de gabarit techniques -->
-  <div class="sys-mark mark-tl">+</div>
-  <div class="sys-mark mark-tr">+</div>
-  <div class="sys-mark mark-bl">+</div>
-  <div class="sys-mark mark-br">+</div>
+  <!-- Marques de gabarit techniques (cadrage fin) -->
+  <div class="sys-mark mark-tl"></div>
+  <div class="sys-mark mark-tr"></div>
+  <div class="sys-mark mark-bl"></div>
+  <div class="sys-mark mark-br"></div>
 
   <div class="cursor-dot" id="cursor-dot"></div>
 
@@ -1394,10 +1374,6 @@
         </div>
         <span class="contact-copy">SYS.STATUS // ONLINE</span>
       </div>
-
-      <div class="footer-massive reveal-up">
-        YAËL ZANIN™
-      </div>
     </section>
   </div>
 
@@ -1477,10 +1453,6 @@
           <button class="theme-toggle interactive-el">Thème Sombre</button>
         </div>
         <span class="contact-copy">SYS.STATUS // ONLINE</span>
-      </div>
-
-      <div class="footer-massive proj-reveal">
-        YAËL ZANIN™
       </div>
     </section>
   </div>
