@@ -47,10 +47,10 @@
       --text: #1A1A1A;
       --text-muted: #6B6763; 
       --border: rgba(26, 26, 26, 0.15);
-      --grid-color: rgba(26, 26, 26, 0.08);
+      --grid-color: rgba(26, 26, 26, 0.12); /* Le juste milieu ! */
       --font-body: 'Inter', -apple-system, sans-serif;
       --font-display: 'Playfair Display', Georgia, serif;
-      --font-mono: 'Space Mono', monospace; 
+      --font-mono: 'Space Mono', monospace;
     }
 
     /* THEME SOMBRE */
@@ -60,7 +60,7 @@
       --text: #F5F2ED;
       --text-muted: #9E9A95;
       --border: rgba(245, 242, 237, 0.15);
-      --grid-color: rgba(245, 242, 237, 0.08);
+      --grid-color: rgba(245, 242, 237, 0.11); /* Ajusté à 0.11 pour un peu plus de présence */
     }
 
     html {
@@ -116,21 +116,34 @@
     }
 
     /* ============================================
-       SYSTEM MARKS
+       SYSTEM MARKS (Équerres avec animation d'ouverture)
        ============================================ */
     .sys-mark {
       position: fixed;
       width: 16px;
       height: 16px;
       border-color: var(--text);
-      opacity: 0.25; 
-      z-index: 50;
+      opacity: 0.35; 
+      z-index: 10000; 
       pointer-events: none;
+      transition: top 1.6s cubic-bezier(0.77, 0, 0.175, 1), 
+                  bottom 1.6s cubic-bezier(0.77, 0, 0.175, 1), 
+                  left 1.6s cubic-bezier(0.77, 0, 0.175, 1), 
+                  right 1.6s cubic-bezier(0.77, 0, 0.175, 1),
+                  opacity 1.6s ease,
+                  border-color 0.6s cubic-bezier(0.25, 1, 0.5, 1);
     }
+
     .mark-tl { top: 24px; left: 24px; border-top: 1px solid; border-left: 1px solid; }
     .mark-tr { top: 24px; right: 24px; border-top: 1px solid; border-right: 1px solid; }
     .mark-bl { bottom: 24px; left: 24px; border-bottom: 1px solid; border-left: 1px solid; }
     .mark-br { bottom: 24px; right: 24px; border-bottom: 1px solid; border-right: 1px solid; }
+
+    .sys-mark.loading { opacity: 1; }
+    .sys-mark.loading.mark-tl { top: calc(50% - 20px); left: calc(50% - 85px); }
+    .sys-mark.loading.mark-tr { top: calc(50% - 20px); right: calc(50% - 85px); }
+    .sys-mark.loading.mark-bl { bottom: calc(50% - 20px); left: calc(50% - 85px); }
+    .sys-mark.loading.mark-br { bottom: calc(50% - 20px); right: calc(50% - 85px); }
 
     /* ============================================
        CUSTOM CURSOR
@@ -145,7 +158,7 @@
       background-color: #ffffff; 
       border-radius: 50%;
       pointer-events: none;
-      z-index: 10000;
+      z-index: 10001;
       margin-left: -20px;
       margin-top: -20px;
       opacity: 0; 
@@ -338,7 +351,7 @@
         linear-gradient(var(--grid-color) 1px, transparent 1px),
         linear-gradient(90deg, var(--grid-color) 1px, transparent 1px);
       background-size: 80px 80px; 
-      background-position: center top;
+      background-position: center var(--hero-grid-y, 0px); /* Variable pour la parallaxe */
       z-index: 0;
       pointer-events: none;
       -webkit-mask-image: linear-gradient(to bottom, rgba(0,0,0,1) 0%, rgba(0,0,0,0) 80%);
@@ -847,7 +860,7 @@
     .micro-text--12 { bottom: -120px; left: 35%; max-width: 180px; text-align: left; }
 
     /* ============================================
-       FOOTER (CONTACT) - WIP BRUTALIST
+       FOOTER (CONTACT)
        ============================================ */
 
     .section--contact {
@@ -857,7 +870,7 @@
       flex-direction: column;
       position: relative;
       overflow: hidden;
-      min-height: 100vh; /* Permet à la zone de fond de remplir tout l'écran au scroll */
+      min-height: 100vh; /* Permet au fond de remplir l'écran à la fin du scroll */
     }
 
     .footer-top {
@@ -957,39 +970,31 @@
     }
     .tech-link:hover::after { width: 100%; }
 
-    /* NOUVEAU BANDEAU "WORK IN PROGRESS" DE FIN DE PAGE */
-    .footer-wip-bar {
-      display: grid;
-      grid-template-columns: 1fr 1fr auto;
-      align-items: end;
+    /* LE CORRECTIF EST LÀ : Bloc rétabli avec sa police code */
+    .footer-bottom {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding-top: 32px;
       border-top: 1px solid var(--border);
-      margin-top: auto; /* Pousse le bloc tout en bas de la section 100vh */
-      padding: 32px 0 32px;
+      margin-bottom: 40px;
+      margin-top: auto; /* Pousse le texte tout en bas de la section 100vh */
       font-family: var(--font-mono);
-      font-size: 0.55rem;
+      font-size: 0.6rem;
       text-transform: uppercase;
       letter-spacing: 0.1em;
       color: var(--text-muted);
     }
 
-    .wip-block {
+    .footer-meta {
       display: flex;
-      flex-direction: column;
-      gap: 6px;
+      align-items: center;
+      gap: 32px;
     }
 
-    .wip-block--right {
-      align-items: flex-end;
-      text-align: right;
-    }
-
-    .wip-block span {
-      display: block;
-    }
-
-    .wip-value {
-      color: var(--text);
-      font-weight: 700;
+    .contact-copy {
+      font-family: var(--font-mono);
+      color: var(--text-muted);
     }
 
     .theme-toggle {
@@ -997,7 +1002,7 @@
       border: none;
       padding: 0;
       font-family: var(--font-mono);
-      font-size: 0.55rem;
+      font-size: 0.6rem;
       text-transform: uppercase;
       letter-spacing: 0.1em;
       color: var(--text-muted);
@@ -1164,18 +1169,16 @@
         margin-bottom: 8px;
       }
 
-      /* Layout mobile pour le bandeau technique */
-      .footer-wip-bar {
-        grid-template-columns: 1fr;
-        gap: 32px;
-        padding: 32px 0 40px;
-      }
-      .wip-block--right {
+      .footer-bottom {
+        flex-direction: column;
         align-items: flex-start;
-        text-align: left;
+        gap: 24px;
+        margin-bottom: 40px;
       }
-      .hidden-mobile {
-        display: none;
+      
+      .footer-meta {
+        width: 100%;
+        justify-content: space-between;
       }
       
       body { cursor: auto; }
@@ -1381,20 +1384,13 @@
         </div>
       </div>
 
-      <!-- BANDEAU FINAL TECHNIQUE (WORK IN PROGRESS) -->
-      <div class="footer-wip-bar reveal-up">
-        <div class="wip-block">
-          <span><span class="wip-value">COPYRIGHT © 2026</span> // YAËL_ZANIN</span>
-          <span>ALL_RIGHTS_RESERVED // DIGITAL_FR</span>
+      <!-- Footer abstrait sans "reveal-up" pour éviter le bug d'affichage -->
+      <div class="footer-bottom">
+        <div class="footer-meta">
+          <span class="contact-copy">© 2026 Yaël Zanin. Tous droits réservés.</span>
+          <button class="theme-toggle interactive-el">Thème Sombre</button>
         </div>
-        <div class="wip-block hidden-mobile">
-          <span><span class="wip-value">WORKSPACE</span> // ENVIRONMENT_LOCAL</span>
-          <span>RENDER_STATUS // WORK_IN_PROGRESS</span>
-        </div>
-        <div class="wip-block wip-block--right">
-          <button class="theme-toggle interactive-el">[ THÈME SOMBRE ]</button>
-          <span>SYS_CORE // <span class="wip-value">ONLINE</span></span>
-        </div>
+        <span class="contact-copy">SYS.STATUS // ONLINE <span style="opacity: 0.5; margin-left: 8px;">[v1.0.2]</span></span>
       </div>
     </section>
   </div>
@@ -1465,24 +1461,15 @@
           <span class="tech-label">EXT.NET // 01</span>
           <a href="https://www.instagram.com/yzanin.fr/" target="_blank" class="tech-link">Instagram</a>
           <a href="https://www.linkedin.com/in/yael-zanin/" target="_blank" class="tech-link">LinkedIn</a>
-          <a href="https://www.facebook.com/yzanin/" target="_blank" class="tech-link">Facebook</a>
         </div>
       </div>
 
-      <!-- BANDEAU FINAL TECHNIQUE -->
-      <div class="footer-wip-bar proj-reveal">
-        <div class="wip-block">
-          <span><span class="wip-value">COPYRIGHT © 2026</span> // YAËL_ZANIN</span>
-          <span>ALL_RIGHTS_RESERVED // DIGITAL_FR</span>
+      <div class="footer-bottom">
+        <div class="footer-meta">
+          <span class="contact-copy">© 2026 Yaël Zanin. Tous droits réservés.</span>
+          <button class="theme-toggle interactive-el">Thème Sombre</button>
         </div>
-        <div class="wip-block hidden-mobile">
-          <span><span class="wip-value">WORKSPACE</span> // ENVIRONMENT_LOCAL</span>
-          <span>RENDER_STATUS // WORK_IN_PROGRESS</span>
-        </div>
-        <div class="wip-block wip-block--right">
-          <button class="theme-toggle interactive-el">[ THÈME SOMBRE ]</button>
-          <span>SYS_CORE // <span class="wip-value">ONLINE</span></span>
-        </div>
+        <span class="contact-copy">SYS.STATUS // ONLINE <span style="opacity: 0.5; margin-left: 8px;">[v1.0.2]</span></span>
       </div>
     </section>
   </div>
@@ -1558,14 +1545,14 @@
     const navBack = document.getElementById('nav-back');
     let isProjectOpen = false;
 
-    /* THEME TOGGLE LOGIC AVEC CROCHETS TECHNIQUES */
+    /* THEME TOGGLE LOGIC */
     const themeToggles = document.querySelectorAll('.theme-toggle');
     const headerThemeToggle = document.getElementById('header-theme-toggle');
 
     function toggleTheme() {
       document.body.classList.toggle('dark-mode');
       const isDark = document.body.classList.contains('dark-mode');
-      themeToggles.forEach(btn => btn.textContent = isDark ? '[ THÈME CLAIR ]' : '[ THÈME SOMBRE ]');
+      themeToggles.forEach(btn => btn.textContent = isDark ? 'Thème Clair' : 'Thème Sombre');
     }
 
     themeToggles.forEach(toggle => {
@@ -1660,23 +1647,35 @@
         gsap.from(text, { rotateX: 20, opacity: 0, y: 50, duration: 1.6, ease: 'power3.out', scrollTrigger: { trigger: text, start: 'top 85%' } });
       });
       
-      /* Parallax Parfait */
+      /* Parallaxe discret de la grille d'accueil (Hero) */
+      gsap.to('.hero', {
+        '--hero-grid-y': '150px',
+        ease: 'none',
+        scrollTrigger: {
+          trigger: '.hero',
+          start: 'top top',
+          end: 'bottom top',
+          scrub: 1
+        }
+      });
+      
+      /* Parallax adouci du titre principal */
       gsap.fromTo('.philosophy-main', 
         { yPercent: -15 }, 
         { yPercent: 15, ease: 'none', scrollTrigger: { trigger: '.section--philosophy', start: 'top bottom', end: 'bottom top', scrub: 1 } }
       );
 
-      /* Parallax inversé multicouche */
+      /* Parallax multicouche : profondeur 3D des petits textes */
       document.querySelectorAll('.micro-text').forEach((text, i) => {
-        const depthFactor = (i % 4) + 1; // 1 to 4
-        const yOffset = 30 * depthFactor;
+        const depth = (i % 4) + 1; // Donne une profondeur de 1 à 4
+        const yOffset = 30 * depth;
         gsap.fromTo(text, 
           { y: yOffset }, 
-          { y: -yOffset, ease: 'none', scrollTrigger: { trigger: '.section--philosophy', start: 'top bottom', end: 'bottom top', scrub: 0.5 + (depthFactor * 0.2) } }
+          { y: -yOffset, ease: 'none', scrollTrigger: { trigger: '.section--philosophy', start: 'top bottom', end: 'bottom top', scrub: 0.5 + (depth * 0.2) } }
         );
       });
       
-      /* Animation d'encadrement au scroll */
+      /* Animation fond gris qui remonte jusqu'en haut de l'écran */
       document.querySelectorAll('.section--contact').forEach((contact) => {
         gsap.fromTo(contact, { clipPath: 'inset(12% 0% 0% 0% round 40px 40px 0px 0px)' }, { clipPath: 'inset(0% 0% 0% 0% round 0px 0px 0px 0px)', ease: 'none', scrollTrigger: { trigger: contact, start: 'top bottom', end: 'top top', scrub: true } });
       });
