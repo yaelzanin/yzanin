@@ -3,19 +3,24 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Yaël Zanin — Communiquant Digital & Design</title>
+  <!-- Titre optimisé SEO -->
+  <title>Yaël Zanin – Communiquant digital & designer en France | Portfolio</title>
 
   <!-- Favicon -->
   <link rel="icon" type="image/png" href="yz.png">
 
-  <!-- SEO Meta Tags -->
-  <meta name="description" content="Portfolio de Yaël Zanin, communiquant digital basé en France. Spécialisé en stratégies de marque, identités visuelles et expériences interactives.">
-  <meta name="keywords" content="communiquant digital, stratégie de marque, identité visuelle, communication globale, Yaël Zanin, portfolio, design digital">
+  <!-- SEO Meta Tags optimisées -->
+  <meta name="description" content="Yaël Zanin accompagne les marques dans leur stratégie digitale, leur identité visuelle et leur communication globale. Freelance basé en France.">
   <meta name="author" content="Yaël Zanin">
-  <meta property="og:title" content="Yaël Zanin — Communiquant Digital & Design">
+  
+  <!-- Balise Canonique essentielle pour éviter le duplicate content -->
+  <link rel="canonical" href="https://yzanin.fr">
+
+  <!-- Open Graph (Réseaux Sociaux) optimisé avec le bon domaine -->
+  <meta property="og:title" content="Yaël Zanin – Communiquant digital & designer en France | Portfolio">
   <meta property="og:description" content="Identités visuelles, stratégies de marque et expériences interactives radicales. Découvrez mon portfolio.">
   <meta property="og:type" content="website">
-  <meta property="og:url" content="https://www.yaelzanin.com">
+  <meta property="og:url" content="https://yzanin.fr">
 
   <!-- Fonts -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -100,6 +105,23 @@
     ::selection {
       background-color: var(--text);
       color: var(--bg);
+    }
+
+    /* ============================================
+       ACCESSIBILITÉ & SEO (Visually Hidden)
+       Permet de cacher du texte au design tout en le 
+       laissant lisible pour Google et les lecteurs d'écran.
+       ============================================ */
+    .sr-only {
+      position: absolute;
+      width: 1px;
+      height: 1px;
+      padding: 0;
+      margin: -1px;
+      overflow: hidden;
+      clip: rect(0, 0, 0, 0);
+      white-space: nowrap;
+      border-width: 0;
     }
 
     /* ============================================
@@ -235,7 +257,7 @@
       width: 24px;
       height: 24px;
       position: relative;
-      overflow: hidden; /* Masque les icônes qui sortent de la zone */
+      overflow: hidden; 
       border-radius: 50%;
     }
 
@@ -248,7 +270,6 @@
                   opacity 0.6s ease;
     }
 
-    /* État par défaut (Clair) : Le soleil est au centre, la lune est cachée en bas */
     .icon-sun {
       transform: translateY(0) rotate(0deg);
       opacity: 1;
@@ -259,7 +280,6 @@
       opacity: 0;
     }
 
-    /* État Sombre : Le soleil tombe et tourne, la lune monte au centre */
     body.dark-mode .icon-sun {
       transform: translateY(-120%) rotate(-45deg);
       opacity: 0;
@@ -318,6 +338,7 @@
     }
 
     .hero-title-line {
+      display: block; /* Essentiel pour remplacer les div par des span dans le h1 */
       overflow: hidden;
       line-height: 0.95;
     }
@@ -880,7 +901,6 @@
     @media (max-width: 900px) {
       .nav { padding: 24px; }
       
-      /* Hide text links on mobile, keep only the theme toggle */
       .nav-link { display: none; }
       .nav-links { gap: 0; }
       .nav-theme-toggle { margin-left: 0; }
@@ -1023,14 +1043,12 @@
       <a href="#work" class="nav-link interactive-el">Projets</a>
       <a href="#contact" class="nav-link interactive-el">Contact</a>
       
-      <!-- Bouton Thème du Header avec Animation SVG Parfaitement Géométrique -->
       <button class="nav-theme-toggle interactive-el" id="header-theme-toggle" aria-label="Changer de thème">
         <svg class="theme-icon icon-moon" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
           <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/>
         </svg>
         <svg class="theme-icon icon-sun" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
           <circle cx="12" cy="12" r="5" fill="currentColor"/>
-          <!-- Chemins calculés pour une symétrie mathématique absolue -->
           <path d="M12 2v2 M12 20v2 M2 12h2 M20 12h2 M4.93 4.93l1.42 1.42 M17.65 17.65l1.42 1.42 M19.07 4.93l-1.42 1.42 M4.93 19.07l1.42-1.42" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
         </svg>
       </button>
@@ -1040,23 +1058,38 @@
   </nav>
 
   <div id="main-view">
-    <!-- Hero -->
+    <!-- Hero (Maintenant un <h1> sémantique pour le SEO) -->
     <section class="hero" id="hero">
-      <div class="hero-content">
-        <div class="hero-title-line">
+      <h1 class="hero-content">
+        <!-- Texte SEO pur (Lu par Google, invisible pour l'utilisateur) -->
+        <span class="sr-only">Communiquant digital & designer en France – Yaël Zanin</span>
+        
+        <!-- Animation visuelle (Ignorée par les lecteurs d'écran pour éviter le doublon) -->
+        <span class="hero-title-line" aria-hidden="true">
           <span class="hero-title reveal-text">COMMUNIQUANT</span>
-        </div>
-        <div class="hero-title-line hero-title-line--indent">
+        </span>
+        <span class="hero-title-line hero-title-line--indent" aria-hidden="true">
           <span class="hero-title reveal-text">DIGITAL</span>
           <span class="hero-title-accent reveal-text">& Design</span>
-        </div>
-      </div>
+        </span>
+      </h1>
       <div class="hero-bottom">
         <p class="hero-subtitle reveal-up">Identités visuelles, stratégies de marque et expériences interactives radicales.</p>
         <div class="hero-scroll reveal-up">
           <span class="hero-scroll-text">Découvrir</span>
         </div>
       </div>
+    </section>
+
+    <!-- SECTION SEO INVISIBLE (Le fameux texte réclamé par Google pour le référencement) -->
+    <section class="sr-only">
+      <h2>Communiquant digital freelance en France</h2>
+      <p>
+        Yaël Zanin accompagne les marques dans leur stratégie digitale,
+        leur identité visuelle et leur communication globale.
+        Basé en France, il intervient sur des projets de branding,
+        direction artistique et design interactif. Portfolio spécialisé en design radical et minimaliste.
+      </p>
     </section>
 
     <!-- About -->
@@ -1281,7 +1314,6 @@
           isCursorVisible = true;
         }
         
-        // Suivi plus réactif et moins "élastique" (duration 0.15 au lieu de 0.3)
         gsap.to(cursorDot, { 
           x: e.clientX, 
           y: e.clientY, 
@@ -1291,7 +1323,6 @@
         });
       });
 
-      // Fiabilisation de l'affichage lors de la sortie/entrée de l'écran
       document.documentElement.addEventListener('mouseleave', () => {
         gsap.to(cursorDot, { opacity: 0, duration: 0.2 });
         isCursorVisible = false;
@@ -1314,7 +1345,6 @@
         });
       }
       bindCursorEffects();
-      // Initial state
       gsap.set(cursorDot, { scale: 0.25 });
     }
 
@@ -1340,9 +1370,7 @@
       document.body.classList.toggle('dark-mode');
       const isDark = document.body.classList.contains('dark-mode');
       
-      // Met à jour le texte des boutons du bas
       themeToggles.forEach(btn => btn.textContent = isDark ? 'Thème Clair' : 'Thème Sombre');
-      // L'animation du logo Soleil/Lune dans le header est gérée automatiquement par le CSS (.dark-mode) !
     }
 
     themeToggles.forEach(toggle => {
