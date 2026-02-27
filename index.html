@@ -3,29 +3,25 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <!-- Titre optimisé SEO -->
   <title>Yaël Zanin – Communiquant digital & designer en France | Portfolio</title>
 
   <!-- Favicon -->
   <link rel="icon" type="image/png" href="yz.png">
 
-  <!-- SEO Meta Tags optimisées -->
+  <!-- SEO Meta Tags -->
   <meta name="description" content="Yaël Zanin accompagne les marques dans leur stratégie digitale, leur identité visuelle et leur communication globale. Freelance basé en France.">
   <meta name="author" content="Yaël Zanin">
-  
-  <!-- Balise Canonique essentielle pour éviter le duplicate content -->
   <link rel="canonical" href="https://yzanin.fr">
 
-  <!-- Open Graph (Réseaux Sociaux) optimisé avec le bon domaine -->
   <meta property="og:title" content="Yaël Zanin – Communiquant digital & designer en France | Portfolio">
   <meta property="og:description" content="Identités visuelles, stratégies de marque et expériences interactives radicales. Découvrez mon portfolio.">
   <meta property="og:type" content="website">
   <meta property="og:url" content="https://yzanin.fr">
 
-  <!-- Fonts -->
+  <!-- Fonts (Ajout de Space Mono pour l'effet technique/code) -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Playfair+Display:ital,wght@0,400;0,500;1,400&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Playfair+Display:ital,wght@0,400;0,500;1,400&family=Space+Mono:ital,wght@0,400;0,700;1,400&display=swap" rel="stylesheet">
 
   <!-- Lenis Smooth Scroll -->
   <link rel="stylesheet" href="https://unpkg.com/lenis@1.1.18/dist/lenis.css">
@@ -54,6 +50,7 @@
       --grid-color: rgba(26, 26, 26, 0.08);
       --font-body: 'Inter', -apple-system, sans-serif;
       --font-display: 'Playfair Display', Georgia, serif;
+      --font-mono: 'Space Mono', monospace; /* Nouvelle typo technique */
     }
 
     /* THEME SOMBRE */
@@ -76,8 +73,7 @@
       height: auto;
     }
 
-    /* Transitions fluides pour le changement de thème */
-    body, .marquee-section, .editorial-image, .project-row, .contact-bottom, .section--contact, .page-transition, .loader-line {
+    body, .marquee-section, .editorial-image, .project-row, .contact-bottom, .section--contact, .page-transition, .loader-line, .sys-mark {
       transition: background-color 0.6s cubic-bezier(0.25, 1, 0.5, 1), 
                   color 0.6s cubic-bezier(0.25, 1, 0.5, 1), 
                   border-color 0.6s cubic-bezier(0.25, 1, 0.5, 1);
@@ -107,11 +103,6 @@
       color: var(--bg);
     }
 
-    /* ============================================
-       ACCESSIBILITÉ & SEO (Visually Hidden)
-       Permet de cacher du texte au design tout en le 
-       laissant lisible pour Google et les lecteurs d'écran.
-       ============================================ */
     .sr-only {
       position: absolute;
       width: 1px;
@@ -125,7 +116,25 @@
     }
 
     /* ============================================
-       CUSTOM CURSOR (SHARP & FLUID)
+       SYSTEM MARKS (Croix de gabarit aux coins)
+       ============================================ */
+    .sys-mark {
+      position: fixed;
+      font-family: var(--font-mono);
+      font-size: 14px;
+      color: var(--text-muted);
+      z-index: 50;
+      pointer-events: none;
+      line-height: 1;
+      opacity: 0.6;
+    }
+    .mark-tl { top: 24px; left: 24px; }
+    .mark-tr { top: 24px; right: 24px; }
+    .mark-bl { bottom: 24px; left: 24px; }
+    .mark-br { bottom: 24px; right: 24px; }
+
+    /* ============================================
+       CUSTOM CURSOR
        ============================================ */
     
     .cursor-dot {
@@ -190,7 +199,7 @@
     }
 
     /* ============================================
-       NAVIGATION & THEME TOGGLE
+       NAVIGATION
        ============================================ */
 
     .nav {
@@ -217,13 +226,24 @@
     .nav-links {
       display: flex;
       align-items: center;
-      gap: 48px;
+      gap: 32px;
+    }
+
+    .nav-sys-label {
+      font-family: var(--font-mono);
+      font-size: 0.55rem;
+      text-transform: uppercase;
+      letter-spacing: 0.15em;
+      color: rgba(255, 255, 255, 0.4);
+      margin-right: 8px;
     }
 
     .nav-link {
-      font-size: 0.85rem;
-      font-weight: 400;
-      letter-spacing: 0.02em;
+      font-family: var(--font-body);
+      font-size: 0.75rem;
+      font-weight: 500;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
       position: relative;
       color: #fff;
     }
@@ -243,7 +263,6 @@
       width: 100%;
     }
 
-    /* ANIMATION LEVER/COUCHER DE SOLEIL/LUNE */
     .nav-theme-toggle {
       background: none;
       border: none;
@@ -270,34 +289,18 @@
                   opacity 0.6s ease;
     }
 
-    .icon-sun {
-      transform: translateY(0) rotate(0deg);
-      opacity: 1;
-    }
+    .icon-sun { transform: translateY(0) rotate(0deg); opacity: 1; }
+    .icon-moon { transform: translateY(120%) rotate(45deg); opacity: 0; }
+    body.dark-mode .icon-sun { transform: translateY(-120%) rotate(-45deg); opacity: 0; }
+    body.dark-mode .icon-moon { transform: translateY(0) rotate(0deg); opacity: 1; }
 
-    .icon-moon {
-      transform: translateY(120%) rotate(45deg);
-      opacity: 0;
-    }
-
-    body.dark-mode .icon-sun {
-      transform: translateY(-120%) rotate(-45deg);
-      opacity: 0;
-    }
-
-    body.dark-mode .icon-moon {
-      transform: translateY(0) rotate(0deg);
-      opacity: 1;
-    }
-
-    .nav-theme-toggle:hover {
-      transform: scale(1.1);
-    }
+    .nav-theme-toggle:hover { transform: scale(1.1); }
 
     .nav-back {
       display: none; 
-      font-size: 0.85rem;
-      font-weight: 400;
+      font-family: var(--font-body);
+      font-size: 0.75rem;
+      font-weight: 500;
       letter-spacing: 0.05em;
       text-transform: uppercase;
       color: #fff;
@@ -313,9 +316,7 @@
       background-color: #fff;
       transition: width 0.4s cubic-bezier(0.25, 0.1, 0, 1);
     }
-    .nav-back:hover::after {
-      width: 100%;
-    }
+    .nav-back:hover::after { width: 100%; }
 
     /* ============================================
        HERO (MAIN)
@@ -330,15 +331,33 @@
       position: relative;
     }
 
+    .hero::before {
+      content: '';
+      position: absolute;
+      top: 0; left: 0; width: 100%; height: 100%;
+      background-image: 
+        linear-gradient(var(--grid-color) 1px, transparent 1px),
+        linear-gradient(90deg, var(--grid-color) 1px, transparent 1px);
+      background-size: 80px 80px; 
+      background-position: center top;
+      z-index: 0;
+      pointer-events: none;
+      -webkit-mask-image: linear-gradient(to bottom, rgba(0,0,0,1) 0%, rgba(0,0,0,0) 80%);
+      mask-image: linear-gradient(to bottom, rgba(0,0,0,1) 0%, rgba(0,0,0,0) 80%);
+      transition: background-image 0.6s ease;
+    }
+
     .hero-content {
       flex: 1;
       display: flex;
       flex-direction: column;
       justify-content: center;
+      position: relative; 
+      z-index: 1;
     }
 
     .hero-title-line {
-      display: block; /* Essentiel pour remplacer les div par des span dans le h1 */
+      display: block; 
       overflow: hidden;
       line-height: 0.95;
     }
@@ -375,6 +394,8 @@
       padding-top: 80px;
       border-bottom: 1px solid var(--border);
       padding-bottom: 32px;
+      position: relative; 
+      z-index: 1;
     }
 
     .hero-subtitle {
@@ -383,6 +404,18 @@
       color: var(--text-muted);
       max-width: 300px;
       line-height: 1.5;
+    }
+
+    .hero-tech-block {
+      display: flex;
+      flex-direction: column;
+      gap: 4px;
+      font-family: var(--font-mono);
+      font-size: 0.55rem;
+      color: var(--text-muted);
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      text-align: right;
     }
 
     .hero-scroll {
@@ -395,6 +428,7 @@
       font-size: 0.75rem;
       text-transform: uppercase;
       letter-spacing: 0.1em;
+      font-weight: 500;
     }
 
     /* ============================================
@@ -412,9 +446,10 @@
     }
 
     .label {
-      font-size: 0.8rem;
+      font-family: var(--font-mono);
+      font-size: 0.65rem;
       text-transform: uppercase;
-      letter-spacing: 0.05em;
+      letter-spacing: 0.15em;
       color: var(--text-muted);
       display: inline-block;
     }
@@ -518,9 +553,11 @@
     }
 
     .project-number {
-      font-size: 0.85rem;
+      font-family: var(--font-mono);
+      font-size: 0.75rem;
       color: var(--text-muted);
-      font-weight: 300;
+      text-transform: uppercase;
+      letter-spacing: 0.1em;
     }
 
     .project-title {
@@ -537,9 +574,10 @@
     }
 
     .project-tag {
-      font-size: 0.85rem;
+      font-family: var(--font-mono);
+      font-size: 0.65rem;
       text-transform: uppercase;
-      letter-spacing: 0.05em;
+      letter-spacing: 0.1em;
       color: var(--text-muted);
     }
 
@@ -555,11 +593,30 @@
 
     .project-header {
       padding: 260px 48px 100px;
+      position: relative;
+    }
+
+    .project-header::before {
+      content: '';
+      position: absolute;
+      top: 0; left: 0; width: 100%; height: 100%;
+      background-image: 
+        linear-gradient(var(--grid-color) 1px, transparent 1px),
+        linear-gradient(90deg, var(--grid-color) 1px, transparent 1px);
+      background-size: 80px 80px; 
+      background-position: center top;
+      z-index: 0;
+      pointer-events: none;
+      -webkit-mask-image: linear-gradient(to bottom, rgba(0,0,0,1) 0%, rgba(0,0,0,0) 80%);
+      mask-image: linear-gradient(to bottom, rgba(0,0,0,1) 0%, rgba(0,0,0,0) 80%);
+      transition: background-image 0.6s ease;
     }
 
     .proj-head-line {
       overflow: hidden;
       line-height: 1.1;
+      position: relative; 
+      z-index: 1;
     }
 
     .proj-title {
@@ -594,17 +651,38 @@
     .editorial-image {
       width: 100%;
       background-color: var(--bg-dark);
+      background-image: 
+        linear-gradient(var(--grid-color) 1px, transparent 1px),
+        linear-gradient(90deg, var(--grid-color) 1px, transparent 1px);
+      background-size: 40px 40px; 
+      background-position: center center;
       overflow: hidden;
       display: flex;
       align-items: center;
       justify-content: center;
-      color: var(--text-muted);
-      font-size: 0.85rem;
-      text-transform: uppercase;
-      letter-spacing: 0.05em;
-      text-align: center;
       padding: 20px;
       aspect-ratio: 4 / 5;
+      transition: background-color 0.6s cubic-bezier(0.25, 1, 0.5, 1), background-image 0.6s ease;
+      border: 1px solid var(--border); 
+    }
+
+    .placeholder-tech {
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+      align-items: center;
+      font-family: var(--font-mono);
+      font-size: 0.65rem;
+      letter-spacing: 0.1em;
+      color: var(--text-muted);
+      text-transform: uppercase;
+      background-color: var(--bg);
+      padding: 16px 24px;
+      border: 1px solid var(--border);
+    }
+
+    .placeholder-tech span {
+      display: block;
     }
 
     .editorial-image--horizontal {
@@ -626,6 +704,7 @@
     }
 
     .editorial-meta-label {
+      font-family: var(--font-mono);
       font-size: 0.55rem;
       text-transform: uppercase;
       letter-spacing: 0.15em;
@@ -661,7 +740,7 @@
     }
 
     /* ============================================
-       PHILOSOPHY & MICRO-COPY
+       PHILOSOPHY & MICRO-COPY (ZONE PARALLAX)
        ============================================ */
 
     .section--philosophy {
@@ -673,6 +752,7 @@
       padding: 240px 48px;
       margin-bottom: 30vh;
       position: relative; 
+      overflow: hidden; /* Empêche les débordements des éléments animés */
     }
 
     .section--philosophy::before {
@@ -709,6 +789,7 @@
     .philosophy-main {
       z-index: 2;
       will-change: transform;
+      /* Suppression du transform fixe, c'est GSAP qui va le centrer parfaitement */
     }
 
     .text-display {
@@ -730,77 +811,87 @@
 
     .micro-text {
       position: absolute;
-      font-size: 0.38rem;
+      font-family: var(--font-mono); 
+      font-size: 0.45rem; 
       text-transform: uppercase;
-      letter-spacing: -0.05em;
-      color: var(--text);
-      line-height: 0.85;
-      text-align: justify;
-      font-weight: 700;
-      word-spacing: -0.06em;
+      letter-spacing: -0.02em; 
+      color: var(--text); 
+      opacity: 0.85; 
+      line-height: 1.2; 
+      font-weight: 400;
       z-index: 1;
+      will-change: transform;
     }
 
     .micro-text span {
       display: block;
       color: var(--text);
+      font-family: var(--font-mono);
       font-weight: 700;
       margin-bottom: 4px;
-      font-size: 0.5rem;
-      letter-spacing: -0.02em;
-      text-align: left;
+      font-size: 0.55rem;
+      letter-spacing: 0.1em;
     }
 
-    /* Constellation positions */
-    .micro-text--1 { top: -140px; left: 0%; max-width: 240px; }
-    .micro-text--3 { top: 8%; right: -5%; max-width: 200px; text-align: right; }
-    .micro-text--3 span { text-align: right; }
-    .micro-text--5 { top: -200px; right: 15%; max-width: 180px; text-align: right; }
-    .micro-text--5 span { text-align: right; }
-    .micro-text--7 { top: 25%; left: -8%; max-width: 160px; }
-    .micro-text--9 { top: -60px; left: 32%; max-width: 180px; }
-    .micro-text--11 { top: -100px; right: 38%; max-width: 150px; text-align: right; }
-    .micro-text--11 span { text-align: right; }
+    /* Retour aux positions "Constellation" éparpillées */
+    .micro-text--1 { top: -140px; left: 0%; max-width: 260px; text-align: left; }
+    .micro-text--3 { top: 8%; right: -5%; max-width: 220px; text-align: right; }
+    .micro-text--5 { top: -200px; right: 15%; max-width: 200px; text-align: right; }
+    .micro-text--7 { top: 25%; left: -8%; max-width: 180px; text-align: left; }
+    .micro-text--9 { top: -60px; left: 32%; max-width: 220px; text-align: left; }
+    .micro-text--11 { top: -100px; right: 38%; max-width: 180px; text-align: right; }
 
-    .micro-text--2 { bottom: -140px; right: 0%; max-width: 240px; text-align: right; }
-    .micro-text--2 span { text-align: right; }
-    .micro-text--4 { bottom: 8%; left: -5%; max-width: 200px; }
-    .micro-text--6 { bottom: -200px; left: 15%; max-width: 180px; }
-    .micro-text--8 { bottom: 25%; right: -8%; max-width: 160px; text-align: right; }
-    .micro-text--8 span { text-align: right; }
-    .micro-text--10 { bottom: -60px; right: 32%; max-width: 180px; text-align: right; }
-    .micro-text--10 span { text-align: right; }
-    .micro-text--12 { bottom: -100px; left: 38%; max-width: 150px; }
+    .micro-text--2 { bottom: -140px; right: 0%; max-width: 260px; text-align: right; }
+    .micro-text--4 { bottom: 8%; left: -5%; max-width: 220px; text-align: left; }
+    .micro-text--6 { bottom: -200px; left: 15%; max-width: 200px; text-align: left; }
+    .micro-text--8 { bottom: 25%; right: -8%; max-width: 180px; text-align: right; }
+    .micro-text--10 { bottom: -60px; right: 32%; max-width: 200px; text-align: right; }
+    .micro-text--12 { bottom: -100px; left: 38%; max-width: 180px; text-align: left; }
 
     /* ============================================
-       CONTACT
+       FOOTER (CONTACT) - BRUTALIST GRID
        ============================================ */
 
     .section--contact {
-      padding-bottom: 40px;
       background-color: var(--bg-dark);
-      min-height: 100vh;
+      padding: 140px 48px 0px; 
       display: flex;
       flex-direction: column;
+      position: relative;
+      overflow: hidden;
     }
 
-    .section--contact .section-grid {
+    .footer-top {
       display: flex;
       flex-direction: column;
-      gap: 16px;
+      align-items: flex-start;
+      margin-bottom: 60px;
     }
 
-    .contact-link {
-      font-family: var(--font-body);
-      font-size: clamp(1.2rem, 2.5vw, 2rem);
-      font-weight: 600;
-      letter-spacing: -0.02em;
-      display: inline-block;
+    .footer-label {
+      font-family: var(--font-mono);
+      font-size: 0.65rem;
+      text-transform: uppercase;
+      letter-spacing: 0.15em;
+      color: var(--text-muted);
+      margin-bottom: 16px;
+    }
+
+    .footer-email {
+      font-family: var(--font-body); 
+      font-size: clamp(1.8rem, 3.5vw, 4rem); 
+      font-weight: 600; 
+      font-style: normal; 
+      letter-spacing: -0.04em; 
+      color: var(--text);
+      line-height: 1;
+      margin-bottom: 16px;
       position: relative;
       transition: color 0.3s ease;
+      display: inline-block;
     }
 
-    .contact-link::after {
+    .footer-email::after {
       content: '';
       position: absolute;
       bottom: 4px;
@@ -812,39 +903,88 @@
       transform-origin: right;
       transition: transform 0.6s cubic-bezier(0.25, 1, 0.5, 1);
     }
-
-    .contact-link:hover::after {
+    .footer-email:hover::after {
       transform: scaleX(1);
       transform-origin: left;
     }
 
-    .contact-bottom {
+    .footer-tech-grid {
       display: flex;
-      align-items: center;
-      justify-content: space-between;
-      margin-top: auto; 
-      padding-top: 32px;
+      flex-direction: column;
       border-top: 1px solid var(--border);
+      margin-bottom: 80px;
+      width: 100%;
     }
 
-    .contact-socials {
-      display: flex;
-      gap: 40px;
+    .tech-row {
+      display: grid;
+      grid-template-columns: 250px 1fr 1fr 1fr; 
+      align-items: center;
+      padding: 32px 0;
+      border-bottom: 1px solid var(--border);
     }
 
-    .social-link {
+    .tech-label {
+      font-family: var(--font-mono);
+      font-size: 0.55rem;
+      text-transform: uppercase;
+      letter-spacing: 0.15em;
+      color: var(--text-muted);
+      font-weight: 600;
+    }
+
+    .tech-link {
+      font-family: var(--font-body);
       font-size: 0.85rem;
+      font-weight: 500;
       text-transform: uppercase;
       letter-spacing: 0.05em;
-      color: var(--text-muted);
-      transition: color 0.3s ease;
-    }
-
-    .social-link:hover {
       color: var(--text);
+      text-decoration: none;
+      transition: color 0.3s ease;
+      position: relative;
+      width: fit-content;
     }
 
-    /* FOOTER META & THEME TOGGLE */
+    .tech-link::after {
+      content: '';
+      position: absolute;
+      bottom: -2px;
+      left: 0;
+      width: 0;
+      height: 1px;
+      background-color: var(--text);
+      transition: width 0.4s cubic-bezier(0.25, 1, 0.5, 1);
+    }
+    .tech-link:hover::after { width: 100%; }
+
+    .footer-bottom {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding-top: 32px;
+      border-top: 1px solid var(--border);
+      margin-bottom: 60px;
+      font-family: var(--font-mono);
+      font-size: 0.6rem;
+      text-transform: uppercase;
+      letter-spacing: 0.1em;
+    }
+
+    .footer-massive {
+      font-family: var(--font-body);
+      font-size: 15vw; 
+      font-weight: 700;
+      letter-spacing: -0.04em;
+      line-height: 0.75;
+      text-transform: uppercase;
+      text-align: center;
+      color: var(--text);
+      white-space: nowrap;
+      margin-bottom: -1vw; 
+      user-select: none;
+    }
+
     .footer-meta {
       display: flex;
       align-items: center;
@@ -852,7 +992,6 @@
     }
 
     .contact-copy {
-      font-size: 0.85rem;
       color: var(--text-muted);
     }
 
@@ -860,10 +999,10 @@
       background: none;
       border: none;
       padding: 0;
-      font-family: var(--font-body);
-      font-size: 0.85rem;
+      font-family: var(--font-mono);
+      font-size: 0.6rem;
       text-transform: uppercase;
-      letter-spacing: 0.05em;
+      letter-spacing: 0.1em;
       color: var(--text-muted);
       cursor: none;
       transition: color 0.3s ease;
@@ -901,7 +1040,7 @@
     @media (max-width: 900px) {
       .nav { padding: 24px; }
       
-      .nav-link { display: none; }
+      .nav-link, .nav-sys-label { display: none; }
       .nav-links { gap: 0; }
       .nav-theme-toggle { margin-left: 0; }
 
@@ -921,6 +1060,11 @@
       .hero-subtitle {
         max-width: 100%;
         font-size: 0.95rem;
+      }
+      
+      .hero-tech-block {
+        text-align: left;
+        align-items: flex-start;
       }
 
       .section, .project-header { padding: 140px 24px; }
@@ -968,7 +1112,7 @@
       }
 
       .philosophy-main {
-        margin: 160px 0; 
+        margin: 80px 0; 
       }
 
       .micro-text {
@@ -982,37 +1126,57 @@
         display: block;
         position: relative;
         max-width: 85%;
-        text-align: justify;
+        text-align: left; /* Sur mobile on bloque tout à gauche pour la lisibilité */
         top: auto; bottom: auto; left: auto; right: auto;
       }
 
       .micro-text--1 { align-self: flex-start; margin-bottom: 40px; }
       .micro-text--1 span { text-align: left; }
       
-      .micro-text--5 { align-self: flex-end; margin-bottom: 20px; }
-      .micro-text--5 span { text-align: right; }
+      .micro-text--5 { align-self: flex-end; margin-bottom: 20px; text-align: left; }
+      .micro-text--5 span { text-align: left; }
       
-      .micro-text--6 { align-self: flex-start; margin-top: 20px; }
+      .micro-text--6 { align-self: flex-start; margin-top: 20px; text-align: left; }
       .micro-text--6 span { text-align: left; }
       
-      .micro-text--2 { align-self: flex-end; margin-top: 40px; }
-      .micro-text--2 span { text-align: right; }
+      .micro-text--2 { align-self: flex-end; margin-top: 40px; text-align: left; }
+      .micro-text--2 span { text-align: left; }
 
       .micro-text span {
         margin-left: 0;
         margin-bottom: 8px;
-        font-size: 0.6rem;
+        font-size: 0.65rem;
       }
       
-      .contact-socials {
-        flex-wrap: wrap; 
-        gap: 16px;
+      .section--contact {
+        padding: 80px 24px 0px;
       }
 
-      .contact-bottom {
-        flex-direction: column;
+      .footer-tech-grid {
+        margin-bottom: 60px;
+      }
+
+      .tech-row {
+        grid-template-columns: 1fr 1fr; 
         gap: 24px;
+        padding: 24px 0;
+      }
+
+      .tech-label {
+        grid-column: 1 / -1; 
+        margin-bottom: 8px;
+      }
+
+      .footer-bottom {
+        flex-direction: column;
         align-items: flex-start;
+        gap: 24px;
+        margin-bottom: 40px;
+      }
+
+      .footer-massive {
+        font-size: 19vw; 
+        margin-bottom: -2vw;
       }
       
       .footer-meta {
@@ -1023,10 +1187,17 @@
       body { cursor: auto; }
       * { cursor: auto; }
       .cursor-dot { display: none; }
+      .sys-mark { display: none; }
     }
   </style>
 </head>
 <body>
+
+  <!-- Marques de gabarit techniques -->
+  <div class="sys-mark mark-tl">+</div>
+  <div class="sys-mark mark-tr">+</div>
+  <div class="sys-mark mark-bl">+</div>
+  <div class="sys-mark mark-br">+</div>
 
   <div class="cursor-dot" id="cursor-dot"></div>
 
@@ -1039,6 +1210,7 @@
   <nav class="nav" id="nav">
     <a href="#" class="nav-logo" id="nav-logo">Yaël Zanin</a>
     <div class="nav-links" id="nav-links">
+      <span class="nav-sys-label">SYS.NAV // 01</span>
       <a href="#about" class="nav-link interactive-el">À propos</a>
       <a href="#work" class="nav-link interactive-el">Projets</a>
       <a href="#contact" class="nav-link interactive-el">Contact</a>
@@ -1054,17 +1226,16 @@
       </button>
 
     </div>
-    <a href="#" class="nav-back interactive-el" id="nav-back">Retour aux projets</a>
+    <a href="#" class="nav-back interactive-el" id="nav-back">
+      <span class="nav-sys-label">SYS.RTN // 00</span> Retour aux projets
+    </a>
   </nav>
 
   <div id="main-view">
-    <!-- Hero (Maintenant un <h1> sémantique pour le SEO) -->
     <section class="hero" id="hero">
       <h1 class="hero-content">
-        <!-- Texte SEO pur (Lu par Google, invisible pour l'utilisateur) -->
         <span class="sr-only">Communiquant digital & designer en France – Yaël Zanin</span>
         
-        <!-- Animation visuelle (Ignorée par les lecteurs d'écran pour éviter le doublon) -->
         <span class="hero-title-line" aria-hidden="true">
           <span class="hero-title reveal-text">COMMUNIQUANT</span>
         </span>
@@ -1075,13 +1246,17 @@
       </h1>
       <div class="hero-bottom">
         <p class="hero-subtitle reveal-up">Identités visuelles, stratégies de marque et expériences interactives radicales.</p>
+        
         <div class="hero-scroll reveal-up">
-          <span class="hero-scroll-text">Découvrir</span>
+          <div class="hero-tech-block">
+            <span>LAT. 48.8566° N // LON. 2.3522° E</span>
+            <span>SYS.VER // 2026.02</span>
+          </div>
         </div>
+
       </div>
     </section>
 
-    <!-- SECTION SEO INVISIBLE (Le fameux texte réclamé par Google pour le référencement) -->
     <section class="sr-only">
       <h2>Communiquant digital freelance en France</h2>
       <p>
@@ -1092,7 +1267,6 @@
       </p>
     </section>
 
-    <!-- About -->
     <section class="section section--about" id="about">
       <div class="section-grid">
         <div class="section-label">
@@ -1113,7 +1287,6 @@
       </div>
     </section>
 
-    <!-- Marquee -->
     <section class="marquee-section">
       <div class="marquee">
         <div class="marquee-track">
@@ -1137,7 +1310,6 @@
       </div>
     </section>
 
-    <!-- Selected Work -->
     <section class="section section--work" id="work">
       <div class="section-grid">
         <div class="section-label">
@@ -1148,36 +1320,35 @@
       <div class="projects-list">
         <a href="#" class="project-row interactive-el reveal-up" data-project="1">
           <div class="project-left">
-            <span class="project-number">01</span>
+            <span class="project-number">OBJ.01</span>
             <h3 class="project-title">Campagne Alpha</h3>
           </div>
-          <span class="project-tag">Direction Artistique</span>
+          <span class="project-tag">Direction Artistique [2025]</span>
         </a>
         <a href="#" class="project-row interactive-el reveal-up" data-project="2">
           <div class="project-left">
-            <span class="project-number">02</span>
+            <span class="project-number">OBJ.02</span>
             <h3 class="project-title">Identité Beta</h3>
           </div>
-          <span class="project-tag">Branding & Stratégie</span>
+          <span class="project-tag">Branding & Stratégie [2024]</span>
         </a>
         <a href="#" class="project-row interactive-el reveal-up" data-project="3">
           <div class="project-left">
-            <span class="project-number">03</span>
+            <span class="project-number">OBJ.03</span>
             <h3 class="project-title">Lancement Gamma</h3>
           </div>
-          <span class="project-tag">Design UI & Digital</span>
+          <span class="project-tag">Design UI & Digital [2025]</span>
         </a>
         <a href="#" class="project-row interactive-el reveal-up" data-project="4">
           <div class="project-left">
-            <span class="project-number">04</span>
+            <span class="project-number">OBJ.04</span>
             <h3 class="project-title">Studio Delta</h3>
           </div>
-          <span class="project-tag">Communication Globale</span>
+          <span class="project-tag">Communication Globale [WIP]</span>
         </a>
       </div>
     </section>
 
-    <!-- Philosophy -->
     <section class="section section--philosophy">
       <div class="philosophy-content">
         <p class="micro-text micro-text--1 reveal-up"><span>01. Structure</span>LA STRUCTURE INVISIBLE DÉTERMINE LA FORME VISIBLE LE SILENCE ENTRE LES LIGNES N'EST QU'UNE ILLUSION DE VIDE LA RÉPÉTITION CRÉE LE RYTHME LE RYTHME CRÉE LA PERCEPTION CHAQUE PIXEL EST UNE DÉCISION CHAQUE DÉCISION EST UN POIDS LA GRILLE NE MENT JAMAIS ELLE ORGANISE LE CHAOS EN FRAGMENTS DIGESTES LA TENSION EST NÉCESSAIRE À L'ÉQUILIBRE L'ABSTRACTION N'EST QUE LA RÉALITÉ DÉPOUILLÉE DE SES ARTIFICES L'INTENTION PRÉCÈDE LA FONCTION LA FONCTION DICTE LA FORME L'ESTHÉTIQUE EST UN SOUS-PRODUIT DE LA LOGIQUE ABSOLUE LE SENS SE CACHE DANS L'ABSENCE LA DENSITÉ N'EST QU'UN VECTEUR.</p>
@@ -1186,10 +1357,12 @@
         <p class="micro-text micro-text--5 reveal-up"><span>05. Grille</span>COORDONNÉES CARTÉSIENNES ALIGNEMENT STRICT DÉVIATION CALCULÉE LA GRILLE EST LE SQUELETTE DE LA PENSÉE VISUELLE ELLE CONTRAINT POUR MIEUX LIBÉRER LA DENSITÉ DE L'INFORMATION L'AXE X ET L'AXE Y SONT LES FRONTIÈRES DE NOTRE RÉALITÉ.</p>
         <p class="micro-text micro-text--9 reveal-up"><span>09. Mémoire</span>L'EMPREINTE VISUELLE DEMEURE LORSQUE L'ÉCRAN S'ÉTEINT LA RÉMANENCE RÉTINIENNE EST NOTRE VÉRITABLE TOILE DE FOND L'ÉPHÉMÈRE DOIT LAISSER UNE CICATRICE INDÉLÉBILE.</p>
         <p class="micro-text micro-text--7 reveal-up"><span>07. Onde</span>FRÉQUENCES IMPERCEPTIBLES LE DIGITAL EST UNE VIBRATION TRADUITE EN PIXELS LA LUMIÈRE DE L'ÉCRAN EST NOTRE MATIÈRE PREMIÈRE FROIDE.</p>
+        
         <div class="philosophy-main">
           <p class="text-display">Concevoir avec intention,</p>
           <p class="text-display text-display--italic">communiquer avec impact.</p>
         </div>
+
         <p class="micro-text micro-text--8 reveal-up"><span>08. Code</span>LOGIQUE BINAIRE TRADUITE EN ÉMOTION ESTHÉTIQUE LE CODE EST LA POÉSIE DE LA MACHINE UNE ARCHITECTURE INVISIBLE.</p>
         <p class="micro-text micro-text--10 reveal-up"><span>10. Échelle</span>DU MICRO AU MACRO LA PROPORTION DICTE L'IMPORTANCE L'INFINIMENT PETIT SOUTIENT L'ÉDIFICE ENTIER SANS JAMAIS TREMBLER SOUS LE POIDS DE L'INFORMATION.</p>
         <p class="micro-text micro-text--6 reveal-up"><span>06. Rythme</span>SÉQUENCE FRÉQUENCE RUPTURE L'ŒIL CHERCHE LE REPOS DANS LA RÉPÉTITION ET L'ÉVEIL DANS L'ANOMALIE L'ASYMÉTRIE N'EST QU'UNE SYMÉTRIE DIFFÉRÉE LE MOUVEMENT EST SUGGÉRÉ PAR LA STAGNATION.</p>
@@ -1199,36 +1372,36 @@
       </div>
     </section>
 
-    <!-- Contact -->
     <section class="section section--contact" id="contact">
-      <div class="section-grid">
-        <div class="section-label">
-          <span class="label reveal-up">/ Contact</span>
-        </div>
-        <div class="section-content">
-          <a href="mailto:yael.zanin@gmail.com" class="contact-link interactive-el reveal-up">yael.zanin@gmail.com</a>
+      <div class="footer-top reveal-up">
+        <span class="footer-label">/ Contact</span>
+        <a href="mailto:yael.zanin@gmail.com" class="footer-email interactive-el">yael.zanin@gmail.com</a>
+      </div>
+
+      <div class="footer-tech-grid reveal-up">
+        <div class="tech-row interactive-el">
+          <span class="tech-label">EXT.NET // 01</span>
+          <a href="https://www.instagram.com/yzanin.fr/" target="_blank" class="tech-link">Instagram</a>
+          <a href="https://www.linkedin.com/in/yael-zanin/" target="_blank" class="tech-link">LinkedIn</a>
+          <a href="https://www.facebook.com/yzanin/" target="_blank" class="tech-link">Facebook</a>
         </div>
       </div>
-      <div class="contact-bottom">
-        <div class="contact-socials">
-          <a href="https://www.instagram.com/yzanin.fr/" target="_blank" class="social-link interactive-el">Instagram</a>
-          <a href="https://www.facebook.com/yzanin/" target="_blank" class="social-link interactive-el">Facebook</a>
-          <a href="https://www.linkedin.com/in/yael-zanin/" target="_blank" class="social-link interactive-el">LinkedIn</a>
-        </div>
+
+      <div class="footer-bottom reveal-up">
         <div class="footer-meta">
-          <p class="contact-copy">© 2026 Yaël Zanin</p>
+          <span class="contact-copy">© 2026 Yaël Zanin. Tous droits réservés.</span>
           <button class="theme-toggle interactive-el">Thème Sombre</button>
         </div>
+        <span class="contact-copy">SYS.STATUS // ONLINE</span>
+      </div>
+
+      <div class="footer-massive reveal-up">
+        YAËL ZANIN™
       </div>
     </section>
   </div>
 
-
-  <!-- ==========================================
-       PROJECT VIEW (DETAILS)
-       ========================================== -->
   <div id="project-view">
-    
     <div class="project-header">
       <div class="proj-head-line">
         <h1 class="proj-title proj-reveal" id="proj-title">Titre du Projet</h1>
@@ -1237,7 +1410,14 @@
 
     <div class="editorial-layout">
       <div class="editorial-col">
-        <div class="editorial-image proj-reveal">[ Image ou Vidéo de présentation 1 ]</div>
+        <div class="editorial-image proj-reveal">
+          <div class="placeholder-tech">
+            <span>FILE // IMG_01_MASTER.RAW</span>
+            <span>RATIO // 4:5</span>
+            <span>STATUS // PENDING_RENDER</span>
+          </div>
+        </div>
+
         <div class="editorial-meta proj-reveal">
           <div class="editorial-meta-block">
             <span class="editorial-meta-label">Client</span>
@@ -1259,7 +1439,14 @@
       </div>
 
       <div class="editorial-col editorial-col--right">
-        <div class="editorial-image editorial-image--horizontal proj-reveal">[ Image de détails / UI / Éditorial 2 ]</div>
+        <div class="editorial-image editorial-image--horizontal proj-reveal">
+          <div class="placeholder-tech">
+            <span>FILE // IMG_02_DETAILS.RAW</span>
+            <span>RATIO // 16:10</span>
+            <span>STATUS // PENDING_RENDER</span>
+          </div>
+        </div>
+
         <div class="editorial-meta proj-reveal" style="grid-template-columns: 1fr;">
            <div class="editorial-meta-block">
              <span class="editorial-meta-label">Index // Portfolio</span>
@@ -1269,28 +1456,35 @@
       </div>
     </div>
 
-    <section class="section section--contact" style="border-top:none; padding-top: 80px; min-height: auto;">
-      <div class="section-grid">
-        <div class="section-label"><span class="label proj-reveal">/ Discutons</span></div>
-        <div class="section-content">
-          <a href="mailto:yael.zanin@gmail.com" class="contact-link interactive-el proj-reveal">yael.zanin@gmail.com</a>
+    <section class="section section--contact" style="border-top:none; min-height: auto;">
+      <div class="footer-top proj-reveal">
+        <span class="footer-label">/ Contact</span>
+        <a href="mailto:yael.zanin@gmail.com" class="footer-email interactive-el">yael.zanin@gmail.com</a>
+      </div>
+
+      <div class="footer-tech-grid proj-reveal">
+        <div class="tech-row interactive-el">
+          <span class="tech-label">EXT.NET // 01</span>
+          <a href="https://www.instagram.com/yzanin.fr/" target="_blank" class="tech-link">Instagram</a>
+          <a href="https://www.linkedin.com/in/yael-zanin/" target="_blank" class="tech-link">LinkedIn</a>
+          <a href="https://www.facebook.com/yzanin/" target="_blank" class="tech-link">Facebook</a>
         </div>
       </div>
-      <div class="contact-bottom" style="margin-top: 120px;">
-        <div class="contact-socials">
-          <a href="https://www.instagram.com/yzanin.fr/" target="_blank" class="social-link interactive-el">Instagram</a>
-          <a href="https://www.facebook.com/yzanin/" target="_blank" class="social-link interactive-el">Facebook</a>
-          <a href="https://www.linkedin.com/in/yael-zanin/" target="_blank" class="social-link interactive-el">LinkedIn</a>
-        </div>
+
+      <div class="footer-bottom proj-reveal">
         <div class="footer-meta">
-          <p class="contact-copy">© 2026 Yaël Zanin</p>
+          <span class="contact-copy">© 2026 Yaël Zanin. Tous droits réservés.</span>
           <button class="theme-toggle interactive-el">Thème Sombre</button>
         </div>
+        <span class="contact-copy">SYS.STATUS // ONLINE</span>
+      </div>
+
+      <div class="footer-massive proj-reveal">
+        YAËL ZANIN™
       </div>
     </section>
   </div>
 
-  <!-- Scripts -->
   <script src="https://cdn.jsdelivr.net/npm/gsap@3.12.7/dist/gsap.min.js"></script>
   <script src="https://cdn.jsdelivr.net/npm/gsap@3.12.7/dist/ScrollTrigger.min.js"></script>
   <script src="https://unpkg.com/lenis@1.1.18/dist/lenis.min.js"></script>
@@ -1369,7 +1563,6 @@
     function toggleTheme() {
       document.body.classList.toggle('dark-mode');
       const isDark = document.body.classList.contains('dark-mode');
-      
       themeToggles.forEach(btn => btn.textContent = isDark ? 'Thème Clair' : 'Thème Sombre');
     }
 
@@ -1449,10 +1642,23 @@
       });
       const marqueeTrack = document.querySelector('.marquee-track');
       if (marqueeTrack) gsap.to(marqueeTrack, { xPercent: -20, ease: 'none', scrollTrigger: { trigger: '.marquee-section', start: 'top bottom', end: 'bottom top', scrub: 1 } });
+      
       document.querySelectorAll('.section--philosophy .text-display').forEach((text) => {
         gsap.from(text, { rotateX: 20, opacity: 0, y: 50, duration: 1.6, ease: 'power3.out', scrollTrigger: { trigger: text, start: 'top 85%' } });
       });
-      gsap.to('.philosophy-main', { yPercent: 50, ease: 'none', scrollTrigger: { trigger: '.section--philosophy', start: 'top bottom', end: 'bottom top', scrub: 1.5 } });
+      
+      /* Parallax Parfait : Le titre principal oscille autour du centre zéro */
+      gsap.fromTo('.philosophy-main', 
+        { yPercent: -40 }, 
+        { yPercent: 40, ease: 'none', scrollTrigger: { trigger: '.section--philosophy', start: 'top bottom', end: 'bottom top', scrub: 1 } }
+      );
+
+      /* Parallax inversé pour la constellation de texte créant un effet 3D */
+      gsap.fromTo('.micro-text', 
+        { y: 100 }, 
+        { y: -100, ease: 'none', scrollTrigger: { trigger: '.section--philosophy', start: 'top bottom', end: 'bottom top', scrub: 1.2 } }
+      );
+      
       document.querySelectorAll('.section--contact').forEach((contact) => {
         gsap.fromTo(contact, { clipPath: 'inset(12% 0% 0% 0% round 40px 40px 0px 0px)' }, { clipPath: 'inset(0% 0% 0% 0% round 0px 0px 0px 0px)', ease: 'none', scrollTrigger: { trigger: contact, start: 'top bottom', end: 'top top', scrub: true } });
       });
