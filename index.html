@@ -46,8 +46,19 @@
       --text: #1A1A1A;
       --text-muted: #6B6763; 
       --border: rgba(26, 26, 26, 0.15);
+      --grid-color: rgba(26, 26, 26, 0.08);
       --font-body: 'Inter', -apple-system, sans-serif;
       --font-display: 'Playfair Display', Georgia, serif;
+    }
+
+    /* THEME SOMBRE */
+    body.dark-mode {
+      --bg: #1A1A1A;
+      --bg-dark: #111111;
+      --text: #F5F2ED;
+      --text-muted: #9E9A95;
+      --border: rgba(245, 242, 237, 0.15);
+      --grid-color: rgba(245, 242, 237, 0.08);
     }
 
     html {
@@ -58,6 +69,13 @@
 
     html.lenis, html.lenis body {
       height: auto;
+    }
+
+    /* Transitions fluides pour le changement de thème */
+    body, .marquee-section, .editorial-image, .project-row, .contact-bottom, .section--contact, .page-transition, .loader-line {
+      transition: background-color 0.6s cubic-bezier(0.25, 1, 0.5, 1), 
+                  color 0.6s cubic-bezier(0.25, 1, 0.5, 1), 
+                  border-color 0.6s cubic-bezier(0.25, 1, 0.5, 1);
     }
 
     body {
@@ -150,7 +168,7 @@
     }
 
     /* ============================================
-       NAVIGATION
+       NAVIGATION & THEME TOGGLE
        ============================================ */
 
     .nav {
@@ -176,6 +194,7 @@
 
     .nav-links {
       display: flex;
+      align-items: center;
       gap: 48px;
     }
 
@@ -200,6 +219,59 @@
 
     .nav-link:hover::after {
       width: 100%;
+    }
+
+    /* ANIMATION LEVER/COUCHER DE SOLEIL/LUNE */
+    .nav-theme-toggle {
+      background: none;
+      border: none;
+      padding: 0;
+      color: #fff;
+      cursor: none;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin-left: 16px;
+      width: 24px;
+      height: 24px;
+      position: relative;
+      overflow: hidden; /* Masque les icônes qui sortent de la zone */
+      border-radius: 50%;
+    }
+
+    .theme-icon {
+      position: absolute;
+      width: 18px;
+      height: 18px;
+      fill: currentColor;
+      transition: transform 0.6s cubic-bezier(0.68, -0.55, 0.265, 1.55), 
+                  opacity 0.6s ease;
+    }
+
+    /* État par défaut (Clair) : Le soleil est au centre, la lune est cachée en bas */
+    .icon-sun {
+      transform: translateY(0) rotate(0deg);
+      opacity: 1;
+    }
+
+    .icon-moon {
+      transform: translateY(120%) rotate(45deg);
+      opacity: 0;
+    }
+
+    /* État Sombre : Le soleil tombe et tourne, la lune monte au centre */
+    body.dark-mode .icon-sun {
+      transform: translateY(-120%) rotate(-45deg);
+      opacity: 0;
+    }
+
+    body.dark-mode .icon-moon {
+      transform: translateY(0) rotate(0deg);
+      opacity: 1;
+    }
+
+    .nav-theme-toggle:hover {
+      transform: scale(1.1);
     }
 
     .nav-back {
@@ -590,14 +662,15 @@
       width: 100%;
       height: 100%;
       background-image: 
-        linear-gradient(rgba(26, 26, 26, 0.08) 1px, transparent 1px),
-        linear-gradient(90deg, rgba(26, 26, 26, 0.08) 1px, transparent 1px);
+        linear-gradient(var(--grid-color) 1px, transparent 1px),
+        linear-gradient(90deg, var(--grid-color) 1px, transparent 1px);
       background-size: 80px 80px; 
       background-position: center center;
       z-index: 0;
       -webkit-mask-image: radial-gradient(ellipse at center, rgba(0,0,0,1) 20%, rgba(0,0,0,0) 85%);
       mask-image: radial-gradient(ellipse at center, rgba(0,0,0,1) 20%, rgba(0,0,0,0) 85%);
       pointer-events: none;
+      transition: background-image 0.6s ease;
     }
 
     .philosophy-content {
@@ -750,9 +823,33 @@
       color: var(--text);
     }
 
+    /* FOOTER META & THEME TOGGLE */
+    .footer-meta {
+      display: flex;
+      align-items: center;
+      gap: 32px;
+    }
+
     .contact-copy {
       font-size: 0.85rem;
       color: var(--text-muted);
+    }
+
+    .theme-toggle {
+      background: none;
+      border: none;
+      padding: 0;
+      font-family: var(--font-body);
+      font-size: 0.85rem;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+      color: var(--text-muted);
+      cursor: none;
+      transition: color 0.3s ease;
+    }
+
+    .theme-toggle:hover {
+      color: var(--text);
     }
 
     /* ============================================
@@ -893,6 +990,11 @@
         align-items: flex-start;
       }
       
+      .footer-meta {
+        width: 100%;
+        justify-content: space-between;
+      }
+      
       body { cursor: auto; }
       * { cursor: auto; }
       .cursor-dot { display: none; }
@@ -915,6 +1017,20 @@
       <a href="#about" class="nav-link interactive-el">À propos</a>
       <a href="#work" class="nav-link interactive-el">Projets</a>
       <a href="#contact" class="nav-link interactive-el">Contact</a>
+      
+      <!-- Bouton Thème du Header avec Animation SVG -->
+      <button class="nav-theme-toggle interactive-el" id="header-theme-toggle" aria-label="Changer de thème">
+        <svg class="theme-icon icon-moon" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+          <!-- Lune croissante pleine et élégante -->
+          <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/>
+        </svg>
+        <svg class="theme-icon icon-sun" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+          <!-- Soleil plein et minimaliste (Bug de la patte corrigé) -->
+          <circle cx="12" cy="12" r="5" fill="currentColor"/>
+          <path d="M12 1v2M12 21v2M4.22 4.22l1.42 1.42M18.36 18.36l1.42 1.42M1 12h2M21 12h2M4.22 19.78l1.42-1.42M18.36 5.64l1.42-1.42" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+        </svg>
+      </button>
+
     </div>
     <a href="#" class="nav-back interactive-el" id="nav-back">Retour aux projets</a>
   </nav>
@@ -1062,7 +1178,10 @@
           <a href="https://www.facebook.com/yzanin/" target="_blank" class="social-link interactive-el">Facebook</a>
           <a href="https://www.linkedin.com/in/yael-zanin/" target="_blank" class="social-link interactive-el">LinkedIn</a>
         </div>
-        <p class="contact-copy">© 2026 Yaël Zanin</p>
+        <div class="footer-meta">
+          <p class="contact-copy">© 2026 Yaël Zanin</p>
+          <button class="theme-toggle interactive-el">Thème Sombre</button>
+        </div>
       </div>
     </section>
   </div>
@@ -1126,7 +1245,10 @@
           <a href="https://www.facebook.com/yzanin/" target="_blank" class="social-link interactive-el">Facebook</a>
           <a href="https://www.linkedin.com/in/yael-zanin/" target="_blank" class="social-link interactive-el">LinkedIn</a>
         </div>
-        <p class="contact-copy">© 2026 Yaël Zanin</p>
+        <div class="footer-meta">
+          <p class="contact-copy">© 2026 Yaël Zanin</p>
+          <button class="theme-toggle interactive-el">Thème Sombre</button>
+        </div>
       </div>
     </section>
   </div>
@@ -1206,6 +1328,27 @@
     const navBack = document.getElementById('nav-back');
     let isProjectOpen = false;
 
+    /* THEME TOGGLE LOGIC */
+    const themeToggles = document.querySelectorAll('.theme-toggle');
+    const headerThemeToggle = document.getElementById('header-theme-toggle');
+
+    function toggleTheme() {
+      document.body.classList.toggle('dark-mode');
+      const isDark = document.body.classList.contains('dark-mode');
+      
+      // Met à jour le texte des boutons du bas
+      themeToggles.forEach(btn => btn.textContent = isDark ? 'Thème Clair' : 'Thème Sombre');
+      // L'animation du logo Soleil/Lune dans le header est gérée automatiquement par le CSS (.dark-mode) !
+    }
+
+    themeToggles.forEach(toggle => {
+      toggle.addEventListener('click', toggleTheme);
+    });
+
+    if (headerThemeToggle) {
+      headerThemeToggle.addEventListener('click', toggleTheme);
+    }
+
     document.querySelectorAll('.project-row').forEach(row => {
       row.addEventListener('click', (e) => {
         e.preventDefault();
@@ -1262,7 +1405,6 @@
 
     function animateHero() {
       const tl = gsap.timeline({ defaults: { ease: 'power4.out', duration: 1.8 } });
-      // Restauration de l'animation des titres
       tl.to('.hero .reveal-text', { y: 0, stagger: 0.15 })
         .to('.hero .reveal-up', { y: 0, opacity: 1, stagger: 0.1, duration: 1.2 }, '-=1.2');
     }
