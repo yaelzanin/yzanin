@@ -104,7 +104,7 @@
       mix-blend-mode: difference;
       will-change: transform;
       image-rendering: -webkit-optimize-contrast;
-      transform: scale(0.25); /* Taille de base 10px */
+      transform: scale(0.25);
     }
 
     /* ============================================
@@ -924,11 +924,11 @@
     <section class="hero" id="hero">
       <div class="hero-content">
         <div class="hero-title-line">
-          <span class="hero-title">COMMUNIQUANT</span>
+          <span class="hero-title reveal-text">COMMUNIQUANT</span>
         </div>
         <div class="hero-title-line hero-title-line--indent">
-          <span class="hero-title">DIGITAL</span>
-          <span class="hero-title-accent">& Design</span>
+          <span class="hero-title reveal-text">DIGITAL</span>
+          <span class="hero-title-accent reveal-text">& Design</span>
         </div>
       </div>
       <div class="hero-bottom">
@@ -1144,7 +1144,7 @@
       "4": { title: "Studio Delta", client: "Delta Architecture", role: "Communication Globale", year: "2026", desc: "Campagne de communication globale pour un studio d'architecture renommé." }
     };
 
-    /* CUSTOM CURSOR - SHARP & FLUID (WITH INCREASED SMOOTHING) */
+    /* CUSTOM CURSOR - RESPONSIVE & STABLE */
     const cursorDot = document.getElementById('cursor-dot');
     let isCursorVisible = false;
     
@@ -1155,30 +1155,34 @@
           isCursorVisible = true;
         }
         
-        // Suivi avec smoothing fluide (0.3s)
+        // Suivi plus réactif et moins "élastique" (duration 0.15 au lieu de 0.3)
         gsap.to(cursorDot, { 
           x: e.clientX, 
           y: e.clientY, 
-          duration: 0.3, 
-          ease: 'power3.out',
+          duration: 0.15, 
+          ease: 'power2.out',
           overwrite: 'auto' 
         });
       });
 
-      document.addEventListener('mouseleave', () => {
-        gsap.to(cursorDot, { opacity: 0, duration: 0.3 });
+      // Fiabilisation de l'affichage lors de la sortie/entrée de l'écran
+      document.documentElement.addEventListener('mouseleave', () => {
+        gsap.to(cursorDot, { opacity: 0, duration: 0.2 });
         isCursorVisible = false;
+      });
+
+      document.documentElement.addEventListener('mouseenter', () => {
+        gsap.to(cursorDot, { opacity: 1, duration: 0.2 });
+        isCursorVisible = true;
       });
 
       function bindCursorEffects() {
         const interactives = document.querySelectorAll('.interactive-el, a');
         interactives.forEach(el => {
           el.addEventListener('mouseenter', () => {
-            // Échelle de survol mise à 0.5 (20px effectifs)
             gsap.to(cursorDot, { scale: 0.5, duration: 0.3, ease: 'power2.out' });
           });
           el.addEventListener('mouseleave', () => {
-            // Retour à l'échelle initiale 0.25 (10px)
             gsap.to(cursorDot, { scale: 0.25, duration: 0.3, ease: 'power2.out' });
           });
         });
@@ -1255,9 +1259,12 @@
       const loader = document.getElementById('loader');
       gsap.to(loader, { opacity: 0, duration: 0.8, delay: 0.5, onComplete: () => { loader.style.display = 'none'; animateHero(); } });
     });
+
     function animateHero() {
       const tl = gsap.timeline({ defaults: { ease: 'power4.out', duration: 1.8 } });
-      tl.to('.hero .reveal-up', { y: 0, opacity: 1, stagger: 0.1, duration: 1.2 });
+      // Restauration de l'animation des titres
+      tl.to('.hero .reveal-text', { y: 0, stagger: 0.15 })
+        .to('.hero .reveal-up', { y: 0, opacity: 1, stagger: 0.1, duration: 1.2 }, '-=1.2');
     }
 
     /* SCROLL ANIMATIONS */
